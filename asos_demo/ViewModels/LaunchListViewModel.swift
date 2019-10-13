@@ -16,7 +16,6 @@ class LaunchListViewModel: LaunchListViewModelProtocol {
     private(set) var filterOption: ObservableValue<FilterRange>
     private(set) var isLoading: ObservableValue<Bool>
     
-    
     private(set) var dataSource: LaunchInfDataSourceProtocol
     let launchInformationService: LaunchInformationServiceProviding
 
