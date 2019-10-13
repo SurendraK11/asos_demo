@@ -1,0 +1,17 @@
+PODS:
+  - Kingfisher (5.8.3):
+    - Kingfisher/Core (= 5.8.3)
+  - Kingfisher/Core (5.8.3)
+  - RangeSeekSlider (1.8.0)
+
+DEPENDENCIES:
+  - Kingfisher (~> 5.8)
+  - RangeSeekSlider
+
+SPEC CHECKSUMS:
+  Kingfisher: b7e4cb65ff24c264bd2a1284b75b974d907afd94
+  RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
+
+PODFILE CHECKSUM: 32f221e3c8ca1b6d8d16b3e55c78697dc62551db
+
+COCOAPODS: 1.4.0
