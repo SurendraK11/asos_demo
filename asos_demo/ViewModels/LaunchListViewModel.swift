@@ -66,7 +66,7 @@ class LaunchListViewModel: LaunchListViewModelProtocol {
                     self.setupObserver()
                 }
                 
-                self.dataSource.data.value = LaunchInfo(company: launchInfo.company, launches: sortedLaunches)
+                self.dataSource.data.value = self.originalData
             
             case .failure(let error):
                 self.onErrorHandling?(error)
