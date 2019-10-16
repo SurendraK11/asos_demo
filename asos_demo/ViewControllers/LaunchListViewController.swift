@@ -10,11 +10,9 @@ import UIKit
 
 class LaunchListViewController: UIViewController {
     
-    @IBOutlet private var filterButton: UIBarButtonItem!
     @IBOutlet private var tableView: UITableView!
     
-    private let filterOptionPresenter: FilterOptionPresenting
-    private let webViewPresenter: WebViewPresenting
+    weak var delegate: LaunchListViewControllerDelegate?
     private var viewModel: LaunchListViewModelProtocol
     
     lazy private var spinnerView: SpinnerView = {
@@ -22,9 +20,7 @@ class LaunchListViewController: UIViewController {
             owner: self, options: nil)?.first as! SpinnerView
     }()
     
-    init(withViewModel viewModel:LaunchListViewModelProtocol, filterOptionPresenter: FilterOptionPresenting, webViewPresenter: WebViewPresenting) {
-        self.filterOptionPresenter = filterOptionPresenter
-        self.webViewPresenter = webViewPresenter
+    init(withViewModel viewModel:LaunchListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -45,14 +41,14 @@ class LaunchListViewController: UIViewController {
     
     
     // this will be called when user taps on filter (right navigation button)
-    @IBAction func showFilter(_ sender: UIBarButtonItem) {
+    @objc func showFilter() {
         guard let _ = viewModel.filterOption.value else {
             return
         }
-        filterOptionPresenter.presentFilter(viewModel.filterOption.value!, forViewController: self) {
-            [weak self] (range) in
+        
+        self.delegate?.launchListViewControllerShowFilterForFilterRange(viewModel.filterOption.value!, changeFilterClosure: { [weak self] (range) in
             self?.viewModel.filterOption.value = range
-        }
+        })
     }
     
     //MARK: - Private methods
@@ -66,7 +62,7 @@ class LaunchListViewController: UIViewController {
         tableView.register(nibName, forCellReuseIdentifier: "\(LaunchTableViewCell.self)")
         
         viewModel.dataSource.didSelectLaunch = { [weak self] launch in
-            self?.showOptions(forLaunch: launch)
+            self?.delegate?.launchListViewControllerDidSelectLaunch(launch)
         }
         
         viewModel.dataSource.data.addObserver(withCompletionHandler: { [weak self] in
@@ -74,37 +70,6 @@ class LaunchListViewController: UIViewController {
         })
     }
     
-    
-    
-    /// showing option to user to choose open wiki or play
-    ///
-    /// - Parameter launch: Launch
-    private func showOptions(forLaunch launch: Launch) {
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) {_ in}
-        let ok = UIAlertAction(title: "OK", style: .default) {_ in}
-        
-        /// play video alert action
-        let playVideo = UIAlertAction(title: "Play Video", style: .default) { _ in
-            guard let videoUrl = launch.links.videoLink, let videoId = launch.links.youtubeId, let url = URL(string: "\(videoUrl)/\(videoId)") else {
-                self.showConfirmAction(title: "", message: "Sorry, video not found", actions: [ok], style: .alert)
-                return
-            }
-            self.webViewPresenter.loadURL(url, withTitle: "Video", forViewController: self)
-            
-        }
-        
-        /// show wiki alert action
-        let openWiki = UIAlertAction(title: "Open Wiki", style: .default) { _ in
-            guard let wikipediaLink = launch.links.wikipedia, let url = URL(string: wikipediaLink) else {
-                self.showConfirmAction(title: "", message: "Sorry, wiki page not found", actions: [ok], style: .alert)
-                return
-            }
-            self.webViewPresenter.loadURL(url, withTitle: "Wiki", forViewController: self)
-  
-        }
-        
-        self.showConfirmAction(title: "Choose Option", message: nil, actions: [playVideo, openWiki, cancel], style: .actionSheet)
-    }
     
     /// setup view model
     private func setupViewModel() {
@@ -124,11 +89,12 @@ class LaunchListViewController: UIViewController {
         }
         
         // add data loaded successfully
-        self.viewModel.activateFilerOption = { [weak self] in
+        self.viewModel.showFilerOption = { [weak self] in
             guard let self = self else {
                 return
             }
-            self.filterButton.isEnabled = true
+            let rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter"), style: .plain, target: self, action:#selector(self.showFilter) )
+            self.navigationItem.rightBarButtonItem = rightBarButtonItem
         }
         
         // add error handling

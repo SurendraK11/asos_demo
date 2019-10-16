@@ -1,5 +1,5 @@
 //
-//  FilterOptionPresenter.swift
+//  FilterOptionViewController.swift
 //  asos_demo
 //
 //  Created by Surendra on 07/10/2019.
@@ -9,19 +9,23 @@
 import UIKit
 import RangeSeekSlider
 
-class FilterOptionPresenter: UIViewController {
+class FilterOptionViewController: UIViewController {
     
     @IBOutlet private var sortOrder: UISwitch!
     @IBOutlet private var rangeSlider: RangeSeekSlider!
     
     private let selectedFilterOption: ObservableValue<FilterRange> = .init(withValue: nil)
-    private var filterRange: FilterRange?
+    private let filterRange: FilterRange
+    private let filterClosure: ((FilterRange) -> ())
     
     @IBAction func close(_ sender: UIBarButtonItem) {
         disposeAndClose()
     }
     
-    init() {
+    init(withFilterRange filterRange: FilterRange, changeFilterClosure filterClosure: @escaping ((FilterRange) -> ())) {
+        self.filterRange = filterRange
+        self.filterClosure = filterClosure
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,14 +33,24 @@ class FilterOptionPresenter: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let _ = filterRange {
-            setupViews(usingFilterRange: filterRange!)
-        }
-        
+    deinit {
+        debugPrint("deinit - FilterOptionViewController")
     }
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupViews(usingFilterRange: filterRange)
+        
+        selectedFilterOption.addObserver {
+            [weak self] in
+            guard let self = self, let filterRange = self.selectedFilterOption.value else {
+                return
+            }
+            self.filterClosure(filterRange)
+            
+        }
+    }
+    
     @IBAction func viewLaunchesTapped(_ sender: UIButton) {
         disposeAndClose()
     }
@@ -62,10 +76,8 @@ class FilterOptionPresenter: UIViewController {
     }
     
     private func combineLatestChange() {
-        guard let _ = filterRange else {
-            return
-        }
-        selectedFilterOption.value = FilterRange(minValue: filterRange!.minValue, maxValue: filterRange!.maxValue, selectedMinValue: Int(rangeSlider.selectedMinValue), selectedMaxValue: Int(rangeSlider.selectedMaxValue), sortOption: sortingOrder())
+        
+        selectedFilterOption.value = FilterRange(minValue: filterRange.minValue, maxValue: filterRange.maxValue, selectedMinValue: Int(rangeSlider.selectedMinValue), selectedMaxValue: Int(rangeSlider.selectedMaxValue), sortOption: sortingOrder())
     }
     
     private func sortingOrder() -> SortOption {
@@ -78,24 +90,9 @@ class FilterOptionPresenter: UIViewController {
     }
 }
 
-extension FilterOptionPresenter: RangeSeekSliderDelegate {
+extension FilterOptionViewController: RangeSeekSliderDelegate {
     func didEndTouches(in slider: RangeSeekSlider) {
         combineLatestChange()
-    }
-}
-
-extension FilterOptionPresenter: FilterOptionPresenting {
-    func presentFilter(_ filter: FilterRange, forViewController viewController: UIViewController, changeFilterClosure filterClosure: @escaping ((FilterRange) -> ())) {
-        filterRange = filter
-        selectedFilterOption.addObserver {
-            [weak self] in
-            guard let self = self, let filterRange = self.selectedFilterOption.value else {
-                return
-            }
-            filterClosure(filterRange)
-
-        }
-        viewController.present(self, animated: true, completion: nil)
     }
 }
 

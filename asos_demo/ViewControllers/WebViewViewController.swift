@@ -9,16 +9,18 @@
 import UIKit
 import WebKit
 
-class WebViewPresenter: UIViewController {
+class WebViewViewController: UIViewController {
     @IBOutlet private var webviewContainerView: UIView!
     @IBOutlet private var navigationBar: UINavigationBar!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
-    private var url: URL?
+    private let url: URL
     private var pageName: String?
     private var webView: WKWebView!
     
-    init() {
+    init(withURL url: URL, pageName: String) {
+        self.url = url
+        self.pageName = pageName
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,20 +28,19 @@ class WebViewPresenter: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        debugPrint("deinit - WebViewViewController")
+    }
+    
     @IBAction func close(_ sender: UIBarButtonItem) {
-        url = nil
-        pageName = nil
         self.dismiss(animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setup()
         activityIndicator.startAnimating()
-        if let _ = url {
-            webView.load(URLRequest(url: url!))
-        }
-        
+        webView.load(URLRequest(url: url))
     }
     
     private func setup() {
@@ -65,7 +66,7 @@ class WebViewPresenter: UIViewController {
     
 }
 
-extension WebViewPresenter: WKNavigationDelegate {
+extension WebViewViewController: WKNavigationDelegate {
     func webView(_ didFinishwebView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
     }
@@ -76,14 +77,5 @@ extension WebViewPresenter: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
-    }
-}
-
-extension WebViewPresenter: WebViewPresenting {
-    func loadURL(_ url: URL, withTitle title: String, forViewController viewController: UIViewController) {
-        self.url = url
-        pageName = title
-
-        viewController.present(self, animated: true, completion: nil)
     }
 }

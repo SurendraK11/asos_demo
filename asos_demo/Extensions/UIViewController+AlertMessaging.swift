@@ -19,15 +19,5 @@ extension UIViewController: ShowMessaging {
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
         self.present(alertController, animated: true, completion: completionHandler)
     }
-    
-    func showConfirmAction(title: String?, message: String?, actions: [UIAlertAction]?, style: UIAlertController.Style = .alert) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-        if let alertActions = actions {
-            for action in alertActions {
-                alertController.addAction(action)
-            }
-        }
-        self.present(alertController, animated: true, completion: nil)
-    }
 }
 

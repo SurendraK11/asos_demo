@@ -11,7 +11,7 @@ import Foundation
 class LaunchListViewModel: LaunchListViewModelProtocol {
     
     var onErrorHandling: ((Error) -> Void)?
-    var activateFilerOption: (() -> Void)?
+    var showFilerOption: (() -> Void)?
     
     private(set) var filterOption: ObservableValue<FilterRange>
     private(set) var isLoading: ObservableValue<Bool>
@@ -62,7 +62,7 @@ class LaunchListViewModel: LaunchListViewModelProtocol {
                     let firstLaunchYear = sortedLaunches[0].launchYear
                     let lastLaunchYear = sortedLaunches[sortedLaunches.count-1].launchYear
                     self.filterOption.value = FilterRange(minValue: firstLaunchYear, maxValue: lastLaunchYear, selectedMinValue: firstLaunchYear, selectedMaxValue: lastLaunchYear, sortOption: .ASC)
-                    self.activateFilerOption?()
+                    self.showFilerOption?()
                     self.setupObserver()
                 }
                 

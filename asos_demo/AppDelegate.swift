@@ -12,14 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    private var applicationCoordinator: ApplicationCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow.init(frame: UIScreen.main.bounds)
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        let applicationCoordinator = ApplicationCoordinator(withWindow: window)
         
-        window?.rootViewController = LaunchListViewController(withViewModel: LaunchListViewModel(withDataSource: LaunchInfDataSource(), launchInformationService: LaunchInformationServiceProvider()),  filterOptionPresenter: FilterOptionPresenter(), webViewPresenter: WebViewPresenter())
+        self.window = window
+        self.applicationCoordinator = applicationCoordinator
+        applicationCoordinator.start()
         
-        window?.makeKeyAndVisible()
         return true
     }
 
