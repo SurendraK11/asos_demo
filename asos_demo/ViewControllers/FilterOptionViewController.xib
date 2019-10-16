@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterOptionPresenter" customModule="asos_demo" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterOptionViewController" customModule="asos_demo" customModuleProvider="target">
             <connections>
                 <outlet property="rangeSlider" destination="fpP-RP-CIB" id="Hqo-Rs-MUt"/>
                 <outlet property="sortOrder" destination="ujr-Au-MBC" id="FjQ-tq-0M1"/>
@@ -120,7 +120,7 @@
                 <constraint firstItem="ujr-Au-MBC" firstAttribute="leading" secondItem="0JK-xW-Fsm" secondAttribute="trailing" constant="5" id="zY2-dW-DNn"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="-1793" y="-182"/>
+            <point key="canvasLocation" x="-1983" y="-339"/>
         </view>
     </objects>
     <resources>

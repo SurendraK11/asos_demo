@@ -10,7 +10,7 @@ import Foundation
 
 protocol LaunchListViewModelProtocol {
     var onErrorHandling : ((Error) -> Void)? {get set}
-    var activateFilerOption:(() -> Void)? {get set}
+    var showFilerOption:(() -> Void)? {get set}
     var filterOption: ObservableValue<FilterRange> {get}
     var dataSource : LaunchInfDataSourceProtocol {get}
     var isLoading: ObservableValue<Bool> {get}
