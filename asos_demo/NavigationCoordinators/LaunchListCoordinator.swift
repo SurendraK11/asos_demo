@@ -35,9 +35,8 @@ extension LaunchListCoordinator: LaunchListViewControllerDelegate {
     ///   - filterRange: FilterRange
     ///   - filterClosure: filterClosure
     func launchListViewControllerShowFilterForFilterRange(_ filterRange: FilterRange, changeFilterClosure filterClosure: @escaping ((FilterRange) -> ())) {
-        let filterOptionPresenter = FilterOptionViewController(withFilterRange: filterRange, changeFilterClosure: filterClosure)
-        
-        self.presenter.present(filterOptionPresenter.toShowable(), animated: true)
+        let filterOptionCoordinator = FilterOptionCoordinator(withPresenter: presenter, filterRange: filterRange, changeFilterClosure: filterClosure)
+        filterOptionCoordinator.start()
     }
 
     
@@ -82,7 +81,7 @@ extension LaunchListCoordinator: LaunchListViewControllerDelegate {
     }
     
     private func presentWebView(forURL url: URL, pageName: String) {
-        let webViewPresenter = WebViewViewController(withURL: url, pageName: pageName)
-        presenter.present(webViewPresenter.toShowable(), animated: true)
+        let webViewCoordinator = WebViewCoordinator(withPresenter: presenter, url: url, pageName: pageName)
+        webViewCoordinator.start()
     }
 }

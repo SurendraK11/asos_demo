@@ -12,6 +12,8 @@
 		440C28062357D520001E74D9 /* FilterOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440C28052357D51F001E74D9 /* FilterOptionViewController.swift */; };
 		444D7012234FF218001B2EC4 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444D7010234FF218001B2EC4 /* WebViewViewController.swift */; };
 		444D7013234FF218001B2EC4 /* WebViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 444D7011234FF218001B2EC4 /* WebViewViewController.xib */; };
+		446ED9A92357EACD00D3B7C3 /* FilterOptionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446ED9A82357EACD00D3B7C3 /* FilterOptionCoordinator.swift */; };
+		446ED9AB2357ECBF00D3B7C3 /* WebViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446ED9AA2357ECBF00D3B7C3 /* WebViewCoordinator.swift */; };
 		447F73132353199000218E7C /* LaunchInfDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F73122353199000218E7C /* LaunchInfDataSourceProtocol.swift */; };
 		447F73152353CCE900218E7C /*  LaunchInformationServiceProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F73142353CCE900218E7C /*  LaunchInformationServiceProviderTests.swift */; };
 		447F73172353D55600218E7C /* LaunchListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F73162353D55600218E7C /* LaunchListViewModelProtocol.swift */; };
@@ -80,6 +82,8 @@
 		440C28052357D51F001E74D9 /* FilterOptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterOptionViewController.swift; sourceTree = "<group>"; };
 		444D7010234FF218001B2EC4 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		444D7011234FF218001B2EC4 /* WebViewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebViewViewController.xib; sourceTree = "<group>"; };
+		446ED9A82357EACD00D3B7C3 /* FilterOptionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionCoordinator.swift; sourceTree = "<group>"; };
+		446ED9AA2357ECBF00D3B7C3 /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
 		447F73122353199000218E7C /* LaunchInfDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInfDataSourceProtocol.swift; sourceTree = "<group>"; };
 		447F73142353CCE900218E7C /*  LaunchInformationServiceProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " LaunchInformationServiceProviderTests.swift"; sourceTree = "<group>"; };
 		447F73162353D55600218E7C /* LaunchListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchListViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -356,6 +360,8 @@
 				44EFB86E2357BB27002D86D1 /* Coordinator.swift */,
 				44EFB8702357BB49002D86D1 /* ApplicationCoordinator.swift */,
 				44EFB8722357BD1C002D86D1 /* LaunchListCoordinator.swift */,
+				446ED9A82357EACD00D3B7C3 /* FilterOptionCoordinator.swift */,
+				446ED9AA2357ECBF00D3B7C3 /* WebViewCoordinator.swift */,
 			);
 			path = NavigationCoordinators;
 			sourceTree = "<group>";
@@ -625,7 +631,9 @@
 				44BE2CAD234B41FB00D3C5EC /* ContentCellViewModel.swift in Sources */,
 				447F73172353D55600218E7C /* LaunchListViewModelProtocol.swift in Sources */,
 				4488FC5023487BBF00ABAD53 /* CustomError.swift in Sources */,
+				446ED9A92357EACD00D3B7C3 /* FilterOptionCoordinator.swift in Sources */,
 				44EFB8682357B972002D86D1 /* Router.swift in Sources */,
+				446ED9AB2357ECBF00D3B7C3 /* WebViewCoordinator.swift in Sources */,
 				44BE2C8F2349D85F00D3C5EC /* LaunchListViewModel.swift in Sources */,
 				4488FC422348749800ABAD53 /* Launch.swift in Sources */,
 				44BE2CAB234B413B00D3C5EC /* ContentCellViewModelProtocol.swift in Sources */,
