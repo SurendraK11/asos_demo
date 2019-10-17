@@ -21,3 +21,9 @@ extension UIViewController: ShowMessaging {
     }
 }
 
+extension UIViewController: Showable {
+    public func toShowable() -> UIViewController {
+        return self
+    }
+}
+
